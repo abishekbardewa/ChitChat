@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Grid } from 'semantic-ui-react';
 
 import ColorPanel from '../ColorPanel/ColorPanel.component';
@@ -6,19 +7,23 @@ import Messages from '../Messages/Messages.component';
 import MetaPanel from '../MetaPanel/MetaPanel.component';
 import SidePanel from '../SidePanel/SidePanel.component';
 
-const Chat = () => (
-	<Grid columns="equal" className="app" style={{ background: '#eee' }}>
-		<ColorPanel />
-		<SidePanel />
+const Chat = ({ currentUser }) => {
+	return (
+		<Grid columns="equal" className="app" style={{ background: '#eee' }}>
+			<ColorPanel />
+			<SidePanel currentUser={currentUser} />
 
-		<Grid.Column style={{ marginLeft: 320 }}>
-			<Messages />
-		</Grid.Column>
+			<Grid.Column style={{ marginLeft: 320 }}>
+				<Messages />
+			</Grid.Column>
 
-		<Grid.Column width={4}>
-			<MetaPanel />
-		</Grid.Column>
-	</Grid>
-);
-
-export default Chat;
+			<Grid.Column width={4}>
+				<MetaPanel />
+			</Grid.Column>
+		</Grid>
+	);
+};
+const mapStateToProps = (state) => ({
+	currentUser: state.user.currentUser,
+});
+export default connect(mapStateToProps)(Chat);

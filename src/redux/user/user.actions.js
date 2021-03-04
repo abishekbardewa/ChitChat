@@ -4,3 +4,6 @@ export const setCurrentUser = (user) => ({
 	type: UserActionsTypes.SET_CURRENT_USER,
 	payload: user,
 });
+export const clearUser = () => ({
+	type: UserActionsTypes.CLEAR_USER,
+});

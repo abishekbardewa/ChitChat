@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import firebase from '../../firebase/firebase.utils';
+import { auth, signInWithGoogle } from '../../firebase/firebase.utils';
 
 import { Grid, Form, Segment, Button, Header, Message, Icon } from 'semantic-ui-react';
 
@@ -35,8 +35,7 @@ class Login extends React.Component {
 				errors: [],
 				isLoading: true,
 			});
-			firebase
-				.auth()
+			auth
 				.signInWithEmailAndPassword(this.state.email, this.state.password)
 				.then((signedInUser) => {
 					console.log(signedInUser);
@@ -72,10 +71,22 @@ class Login extends React.Component {
 		return (
 			<Grid textAlign="center" verticalAlign="middle" className="app">
 				<Grid.Column style={{ maxWidth: 450 }}>
-					<Header as="h1" icon color="purple" textAlign="center">
-						<Icon name="code branch" color="purple" />
-						Login for ChitChat
+					<Header as="h1" icon color="blue" textAlign="center">
+						<Icon name="code branch" color="blue" />
+						Sign in to ChitChat
 					</Header>
+					<br />
+					<Button
+						onClick={signInWithGoogle}
+						disabled={isLoading}
+						className={isLoading ? 'loading' : ''}
+						style={{ border: '#4285f4', background: '#fff' }}
+						fluid
+						size="large"
+					>
+						Login with Google
+					</Button>
+					<br />
 					<Form onSubmit={this.handleSubmit} size="large" autoComplete="off">
 						<Segment stacked>
 							<Form.Input
@@ -100,7 +111,7 @@ class Login extends React.Component {
 								className={this.handleInputError(errors, 'password')}
 								type="password"
 							/>
-							<Button disabled={isLoading} className={isLoading ? 'loading' : ''} color="purple" fluid size="large">
+							<Button disabled={isLoading} className={isLoading ? 'loading' : ''} color="blue" fluid size="large">
 								Submit
 							</Button>
 						</Segment>
@@ -113,7 +124,7 @@ class Login extends React.Component {
 					)}
 
 					<Message>
-						Don't have an account? <Link to="/register">Login</Link>
+						Don't have an account? <Link to="/register">Register</Link>
 					</Message>
 				</Grid.Column>
 			</Grid>
