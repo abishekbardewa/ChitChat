@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { auth, signInWithGoogle } from '../../firebase/firebase.utils';
-
 import { Grid, Form, Segment, Button, Header, Message, Icon } from 'semantic-ui-react';
+import { auth } from '../../firebase/firebase.utils';
 
 class Login extends React.Component {
 	constructor(props) {
@@ -15,11 +14,8 @@ class Login extends React.Component {
 		};
 	}
 
-	displayErrors = (errors) => {
-		return errors.map((error, idx) => {
-			return <p key={idx}>{error.message}</p>;
-		});
-	};
+	displayErrors = (errors) => errors.map((error, idx) => <p key={idx}>{error.message}</p>);
+
 	handleChange = (event) => {
 		event.preventDefault();
 		this.setState({
@@ -29,6 +25,7 @@ class Login extends React.Component {
 
 	handleSubmit = (event) => {
 		event.preventDefault();
+		const { email, password, errors } = this.state;
 		const isValid = this.isFormValid(this.state);
 		if (isValid) {
 			this.setState({
@@ -36,24 +33,27 @@ class Login extends React.Component {
 				isLoading: true,
 			});
 			auth
-				.signInWithEmailAndPassword(this.state.email, this.state.password)
+				.signInWithEmailAndPassword(email, password)
 				.then((signedInUser) => {
 					console.log(signedInUser);
 				})
 				.catch((err) => {
 					console.log(err);
 					this.setState({
-						errors: this.state.errors.concat(err),
+						errors: errors.concat(err),
 						isLoading: false,
 					});
 				});
 		}
 	};
+
 	isFormValid = ({ email, password }) => {
-		let errors = [];
+		const errors = [];
 		let error;
 		if (!email.length || !password.length) {
-			error = { message: 'Fill in all the fields' };
+			error = {
+				message: 'Fill in all the fields',
+			};
 			this.setState({
 				errors: errors.concat(error),
 			});
@@ -62,31 +62,22 @@ class Login extends React.Component {
 		return true;
 	};
 
-	handleInputError = (errors, inputName) => {
-		return errors.some((error) => error.message.toLowerCase().includes(inputName)) ? 'error' : '';
-	};
+	handleInputError = (errors, inputName) => (errors.some((error) => error.message.toLowerCase().includes(inputName)) ? 'error' : '');
 
 	render() {
 		const { email, password, errors, isLoading } = this.state;
 		return (
 			<Grid textAlign="center" verticalAlign="middle" className="app">
-				<Grid.Column style={{ maxWidth: 450 }}>
+				<Grid.Column
+					style={{
+						maxWidth: 450,
+					}}
+				>
 					<Header as="h1" icon color="blue" textAlign="center">
 						<Icon name="code branch" color="blue" />
 						Sign in to ChitChat
 					</Header>
-					<br />
-					<Button
-						onClick={signInWithGoogle}
-						disabled={isLoading}
-						className={isLoading ? 'loading' : ''}
-						style={{ border: '#4285f4', background: '#fff' }}
-						fluid
-						size="large"
-					>
-						Login with Google
-					</Button>
-					<br />
+
 					<Form onSubmit={this.handleSubmit} size="large" autoComplete="off">
 						<Segment stacked>
 							<Form.Input

@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { auth } from './firebase/firebase.utils';
 import Register from './components/Auth/Register.component';
 import Login from './components/Auth/Login.component';
-import Chat from './components/Chat/Chat.component';
+import Home from './components/Home/Home.component';
 import { setCurrentUser, clearUser } from './redux/user/user.actions';
 import Spinner from './components/Spinner/Spinner';
 
@@ -24,28 +24,26 @@ class App extends React.Component {
 			}
 		});
 	}
+
 	render() {
 		return this.props.isLoading ? (
 			<Spinner />
 		) : (
 			<Switch>
-				<Route exact path="/" component={Chat} />
+				<Route exact path="/" component={Home} />
 				<Route path="/login" component={Login} />
 				<Route path="/register" component={Register} />
 			</Switch>
 		);
 	}
 }
-const mapStateToProps = (state) => {
+const mapStateToProps = (state) =>
 	// console.log('Maps', state);
-	return {
+	({
 		isLoading: state.user.isLoading,
-	};
-};
-const mapDispatchToProps = (dispatch) => {
-	return {
-		setCurrentUser: (user) => dispatch(setCurrentUser(user)),
-		clearUser: () => dispatch(clearUser()),
-	};
-};
+	});
+const mapDispatchToProps = (dispatch) => ({
+	setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+	clearUser: () => dispatch(clearUser()),
+});
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

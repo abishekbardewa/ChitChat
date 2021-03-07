@@ -7,7 +7,7 @@ import Messages from '../Messages/Messages.component';
 import MetaPanel from '../MetaPanel/MetaPanel.component';
 import SidePanel from '../SidePanel/SidePanel.component';
 
-const Chat = ({ currentUser }) => {
+const Home = ({ currentUser }) => {
 	return (
 		<Grid columns="equal" className="app" style={{ background: '#eee' }}>
 			<ColorPanel />
@@ -26,4 +26,4 @@ const Chat = ({ currentUser }) => {
 const mapStateToProps = (state) => ({
 	currentUser: state.user.currentUser,
 });
-export default connect(mapStateToProps)(Chat);
+export default connect(mapStateToProps)(Home);
