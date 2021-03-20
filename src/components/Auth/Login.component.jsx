@@ -73,8 +73,8 @@ class Login extends React.Component {
 						maxWidth: 450,
 					}}
 				>
-					<Header as="h1" icon color="blue" textAlign="center">
-						<Icon name="code branch" color="blue" />
+					<Header as="h1" icon style={{ color: '#611f69' }} textAlign="center">
+						<Icon name="code branch" style={{ color: '#611f69' }} />
 						Sign in to ChitChat
 					</Header>
 
@@ -102,8 +102,14 @@ class Login extends React.Component {
 								className={this.handleInputError(errors, 'password')}
 								type="password"
 							/>
-							<Button disabled={isLoading} className={isLoading ? 'loading' : ''} color="blue" fluid size="large">
-								Submit
+							<Button
+								disabled={isLoading}
+								className={isLoading ? 'loading' : ''}
+								style={{ backgroundColor: '#611f69', color: '#fff' }}
+								fluid
+								size="large"
+							>
+								Sign in
 							</Button>
 						</Segment>
 					</Form>
@@ -115,7 +121,7 @@ class Login extends React.Component {
 					)}
 
 					<Message>
-						Don't have an account? <Link to="/register">Register</Link>
+						Don't have an account? <Link to="/register">Sign up</Link>
 					</Message>
 				</Grid.Column>
 			</Grid>

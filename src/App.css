@@ -9,3 +9,66 @@ app {
 	background: #eee;
 	padding: 1em;
 }
+
+/* SidePanel.js */
+.menu {
+	padding-bottom: 2em;
+}
+
+/* Messages.js */
+.messages {
+	height: 62vh;
+	overflow-y: scroll;
+	max-width: 100% !important;
+}
+.messages-progress {
+	height: 58vh;
+	overflow-y: scroll;
+	max-width: 100% !important;
+}
+/*MessageForm.js*/
+
+.message-form {
+	position: fixed !important;
+	bottom: 1em;
+	margin-left: 320px !important;
+	left: 0;
+	right: 1em;
+	z-index: 200;
+}
+
+/* Message.js */
+.message-self {
+	border-left: 2px solid orange;
+	padding-left: 8px;
+}
+
+.message-image {
+	padding: 1em;
+}
+
+/* ProgressBar.js */
+.progress-bar {
+	margin: 0.3em 0 0 0 !important;
+}
+
+/* ColorPnael.js */
+
+.color-container {
+	cursor: pointer;
+	position: relative;
+	overflow: hidden;
+	width: 35px;
+	border-radius: 3px;
+}
+
+.color-square {
+	width: 35px;
+	height: 35px;
+}
+
+.color-overlay {
+	width: 85px;
+	height: 35px;
+	transform: rotate(225deg);
+}

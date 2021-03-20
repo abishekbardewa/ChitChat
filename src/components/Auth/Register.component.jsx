@@ -125,7 +125,7 @@ class Register extends React.Component {
 				<Grid.Column style={{ maxWidth: 450 }}>
 					<Header as="h1" icon color="violet" textAlign="center">
 						<Icon name="chat" color="violet" />
-						Register for ChitChat
+						Sign up for ChitChat
 					</Header>
 					<Form onSubmit={this.handleSubmit} size="large" autoComplete="off">
 						<Segment stacked>
@@ -173,7 +173,7 @@ class Register extends React.Component {
 								type="password"
 							/>
 							<Button disabled={isLoading} className={isLoading ? 'loading' : ''} color="violet" fluid size="large">
-								Submit
+								Sign up
 							</Button>
 						</Segment>
 					</Form>
@@ -185,7 +185,7 @@ class Register extends React.Component {
 					)}
 
 					<Message>
-						Already a user? <Link to="/login">Login</Link>
+						Already a user? <Link to="/login">Sign in</Link>
 					</Message>
 				</Grid.Column>
 			</Grid>
