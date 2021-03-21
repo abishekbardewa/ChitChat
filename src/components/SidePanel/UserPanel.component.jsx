@@ -11,7 +11,7 @@ class UserPanel extends React.Component {
 		previewImage: '',
 		croppedImage: '',
 		uploadedCroppedImage: '',
-		blob: '',
+		blob: null,
 		storageRef: firebase.storage().ref(),
 		userRef: firebase.auth().currentUser,
 		usersRef: firebase.database().ref('users'),
@@ -72,7 +72,7 @@ class UserPanel extends React.Component {
 		const { storageRef, userRef, blob, metadata } = this.state;
 
 		storageRef
-			.child(`avatars/user=${userRef.uid}`)
+			.child(`avatars/users/${userRef.uid}`)
 			.put(blob, metadata)
 			.then((snap) => {
 				snap.ref.getDownloadURL().then((downloadURL) =>
@@ -110,12 +110,12 @@ class UserPanel extends React.Component {
 			});
 	};
 
-	handleSignOut() {
+	handleSignOut = () => {
 		firebase
 			.auth()
 			.signOut()
-			.then(() => console.log('SignedOut'));
-	}
+			.then(() => console.log('SignedOut!'));
+	};
 
 	render() {
 		const { displayName, photoURL } = this.state.user;

@@ -4,7 +4,7 @@ import { setCurrentChannel, setPrivateChannel } from '../../redux/channel/channe
 
 import firebase from '../../firebase/firebase.utils';
 
-import { Icon, Menu, Label } from 'semantic-ui-react';
+import { Icon, Menu } from 'semantic-ui-react';
 
 class Starred extends React.Component {
 	state = {
@@ -19,6 +19,14 @@ class Starred extends React.Component {
 			this.addListeners(this.state.user.uid);
 		}
 	}
+
+	componentWillUnmount() {
+		this.removeListener();
+	}
+
+	removeListener = () => {
+		this.state.usersRef.child(`${this.state.user.uid}/starred`).off();
+	};
 
 	addListeners = (userId) => {
 		this.state.usersRef

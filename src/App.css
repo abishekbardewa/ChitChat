@@ -36,7 +36,9 @@ app {
 	right: 1em;
 	z-index: 200;
 }
-
+.emojipicker {
+	position: absolute;
+}
 /* Message.js */
 .message-self {
 	border-left: 2px solid orange;
@@ -121,4 +123,63 @@ app {
 	100% {
 		opacity: 0;
 	}
+}
+
+/* Skeleton.js */
+
+.skeleton {
+	position: relative;
+	overflow: hidden;
+	height: 40px;
+	margin-bottom: 10px;
+}
+
+.skeleton::after {
+	content: '';
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 50%;
+	height: 100%;
+	animation: sweep 2s infinite;
+	background-image: linear-gradient(to left, transparent, rgba(255, 255, 255, 0.4), transparent);
+}
+@keyframes sweep {
+	0% {
+		trasform: translateX(-100%);
+	}
+	50% {
+		trasform: translateX(150%);
+	}
+	100% {
+		trasform: translateX(-100%);
+	}
+}
+
+.skeleton-avatar {
+	height: 35px;
+	width: 35px;
+	border-radius: 3px;
+	background-color: rgba(255, 255, 255, 0.3);
+}
+
+.skeleton-author {
+	height: 120px;
+	width: 10px;
+	border-radius: 3px;
+	background-color: rgba(58, 57, 57, 0.3);
+	position: absolute;
+	bottom: 30px;
+	left: 40px;
+	right: 0;
+}
+.skeleton-details {
+	height: 20px;
+	border-radius: 3px;
+	background-color: rgba(58, 57, 57, 0.3);
+	position: absolute;
+	bottom: 5px;
+	left: 40px;
+	right: 20px;
 }

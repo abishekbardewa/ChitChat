@@ -3,7 +3,7 @@ import firebase from '../../firebase/firebase.utils';
 import { connect } from 'react-redux';
 import { setCurrentChannel, setPrivateChannel } from '../../redux/channel/channel.actions';
 
-import { Icon, Menu, Modal, Form, Button, Input } from 'semantic-ui-react';
+import { Icon, Menu } from 'semantic-ui-react';
 
 class DirectMessages extends React.Component {
 	state = {
@@ -21,10 +21,20 @@ class DirectMessages extends React.Component {
 		}
 	}
 
+	componentWillUnmount() {
+		this.removeListeners();
+	}
+
+	removeListeners = () => {
+		this.state.usersRef.off();
+		this.state.presenceRef.off();
+		this.state.connectedRef.off();
+	};
+
 	addListeners = (currentUserUid) => {
 		let loadedUsers = [];
 		this.state.usersRef.on('child_added', (snap) => {
-			if (currentUserUid !== snap.uid) {
+			if (currentUserUid !== snap.key) {
 				let user = snap.val();
 				user['uid'] = snap.key;
 				user['status'] = 'offline';
@@ -34,7 +44,7 @@ class DirectMessages extends React.Component {
 		});
 
 		this.state.connectedRef.on('value', (snap) => {
-			if (snap.val() == true) {
+			if (snap.val() === true) {
 				const ref = this.state.presenceRef.child(currentUserUid);
 				ref.set(true);
 				ref.onDisconnect().remove((err) => {
@@ -51,7 +61,7 @@ class DirectMessages extends React.Component {
 			}
 		});
 
-		this.state.presenceRef.on('child_added', (snap) => {
+		this.state.presenceRef.on('child_removed', (snap) => {
 			if (currentUserUid !== snap.key) {
 				this.addStatusToUser(snap.key, false);
 			}
@@ -60,7 +70,7 @@ class DirectMessages extends React.Component {
 
 	addStatusToUser = (userId, connected = true) => {
 		const updatedUsers = this.state.users.reduce((acc, user) => {
-			if (user.uid == userId) {
+			if (user.uid === userId) {
 				user['status'] = `${connected ? 'online' : 'offline'}`;
 			}
 			return acc.concat(user);
@@ -72,7 +82,6 @@ class DirectMessages extends React.Component {
 
 	changeChannel = (user) => {
 		const channelId = this.getChannelId(user.uid);
-		console.log(channelId);
 		const channelData = {
 			id: channelId,
 			name: user.name,
