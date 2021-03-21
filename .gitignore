@@ -21,3 +21,19 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Local configuration file (ex. SDK path)
+local.properties
+
+# Google Services (ex. APIs and Firebase)
+google-services.json
+GoogleService-Info.plist
+
+# Firebase Hosting
+.firebaserc
+firebase-debug.log
+
+# Local config/setup
+database.rules.json
+storage.rules
+firebase.json
